@@ -1,0 +1,19 @@
+<resources>
+    <!--Common Texts-->
+    <string name="app_name">Fraud Prevention Platform</string>
+    <string name="common_debug">Debug</string>
+    <string name="common_release">Release</string>
+    <string name="common_processing">Processing…</string>
+
+    <!--Missing permissions-->
+    <string name="fragment_missing_permissions_text_caption">Missing permission</string>
+    <string name="fragment_missing_permissions_text_description">Please make sure, that non permission is permanently blocked in the settings.</string>
+    <string name="fragment_missing_permissions_button_permission">Ask for permissions</string>
+
+    <!--Main Activity-->
+    <string name="main_activity_text_sdk_info">Name:\nVersion:\nBuild:\nVariant:</string>
+    <string name="main_activity_text_sdk_info_values">%s\n%s\n%s\n%s</string>
+    <string name="main_activity_button_sample_action">Sample Action</string>
+
+
+</resources>
