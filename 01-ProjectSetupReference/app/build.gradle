@@ -29,11 +29,11 @@ android {
     // Add Fraud Prevention Platform native library
     sourceSets {
         debug {
-            jniLibs.srcDirs = ['../../Frameworks/GAHRiskEngine/Debug']
+            jniLibs.srcDirs += ['libs/Debug']
         }
 
         release {
-            jniLibs.srcDirs = ['../../Frameworks/GAHRiskEngine/Release']
+            jniLibs.srcDirs += ['libs/release']
         }
     }
 }
@@ -42,12 +42,12 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
 
     // Add Fraud Prevention Platform java library
-    releaseImplementation files('../../Frameworks/GAHRiskEngine/Release/GAHRiskEngine.jar')
-    debugImplementation files('../../Frameworks/GAHRiskEngine/Debug/GAHRiskEngine.jar')
+    releaseImplementation files('libs/Release/GAHRiskEngine.jar')
+    debugImplementation files('libs/Debug/GAHRiskEngine.jar')
 
     // Add ZDetection java library
-    releaseImplementation files('../../Frameworks/ZDetection/Release/zdetection@aar')
-    debugImplementation files('../../Frameworks/ZDetection/Debug/zdetection@aar')
+    releaseImplementation files('libs/zdetection@aar')
+    debugImplementation files('libs/zdetection@aar')
 
     // Add JNA dependency
     api 'net.java.dev.jna:jna:4.5.0@aar'

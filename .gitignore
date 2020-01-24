@@ -79,3 +79,8 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+01-ProjectSetup/.idea/
+01-ProjectSetup/app/libs/
+01-ProjectSetupReference/.idea/
+01-ProjectSetupReference/app/libs/
