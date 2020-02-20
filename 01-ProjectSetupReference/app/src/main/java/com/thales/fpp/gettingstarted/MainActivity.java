@@ -59,6 +59,7 @@ public class MainActivity extends AbstractMainActivity {
      *
      * @return {@code True} if initialisation was successful, else {@code false}.
      */
+    @Override
     boolean initSDK() {
 
         // Setup core config, set other optional params, if required
@@ -76,6 +77,7 @@ public class MainActivity extends AbstractMainActivity {
         return true;
     }
 
+    @Override
     void endSDK() {
         // It is recommended to call this method during a transaction screen exit
         // where startPrefetchSignals() was called previously.
@@ -85,6 +87,7 @@ public class MainActivity extends AbstractMainActivity {
     /**
      *  Load activity visual components.
      */
+    @Override
     void initGUI() {
 
         // Display SDK version information.
