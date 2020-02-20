@@ -40,6 +40,8 @@ android {
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'commons-codec:commons-codec:1.11'
+    implementation 'commons-io:commons-io:2.6'
 
     // Add Fraud Prevention Platform java library
     releaseImplementation files('../../Frameworks/GAHRiskEngine/Release/GAHRiskEngine.jar')
