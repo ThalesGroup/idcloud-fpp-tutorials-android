@@ -52,5 +52,5 @@ dependencies {
     debugImplementation files('libs/zdetection@aar')
 
     // Add JNA dependency
-    api 'net.java.dev.jna:jna:4.5.0@aar'
+    api 'net.java.dev.jna:jna:5.5.0@aar'
 }
