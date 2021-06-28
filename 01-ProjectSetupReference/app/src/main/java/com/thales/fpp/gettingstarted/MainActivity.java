@@ -63,10 +63,12 @@ public class MainActivity extends AbstractMainActivity {
     boolean initSDK() {
 
         // Setup core config, set other optional params, if required
-        final GAHCoreConfig coreConfig = new GAHCoreConfig.Builder(this.getApplication(), FPP_URL).build();
+        GAHCoreConfig coreConfig = new GAHCoreConfig.Builder(this.getApplication(), FPP_URL)
+                .build();
 
         // Gemalto Signal collection is mandatory.
-        final GAHGemaltoSignalConfig signalConfig = new GAHGemaltoSignalConfig.Builder().build();
+        GAHGemaltoSignalConfig signalConfig = new GAHGemaltoSignalConfig.Builder()
+                .build();
 
         // Pass configuration to core.
         GAHCore.initialize(coreConfig, signalConfig);
@@ -85,21 +87,21 @@ public class MainActivity extends AbstractMainActivity {
     }
 
     /**
-     *  Load activity visual components.
+     * Load activity visual components.
      */
     @Override
     void initGUI() {
 
         // Display SDK version information.
-        final GAHMetaInformation sdkInfo = GAHCore.getSDKVersionInfo();
-        final String formattedVersion = String.format(Locale.getDefault(),
+        GAHMetaInformation sdkInfo = GAHCore.getSDKVersionInfo();
+        String formattedVersion = String.format(Locale.getDefault(),
                 getString(R.string.main_activity_text_sdk_info_values),
                 sdkInfo.getName(),
                 sdkInfo.getVersion(),
                 sdkInfo.getBuild(),
                 sdkInfo.isDebug() ? getText(R.string.common_debug) : getText(R.string.common_release));
 
-        final TextView versionTextView = findViewById(R.id.main_activity_text_version_values);
+        TextView versionTextView = findViewById(R.id.main_activity_text_version_values);
         versionTextView.setText(formattedVersion);
 
         // Add listener to sample button.
@@ -119,7 +121,7 @@ public class MainActivity extends AbstractMainActivity {
     private void onButtonPressedSampleAction() {
         // Show direct response to UI.
         // Full application will have some sort of dialog fragment / loading indicator.
-        Toast.makeText(this, R.string.common_processing, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.common_processing, Toast.LENGTH_SHORT).show();
 
         // Listen to prefetch status
         GAHCore.requestPrefetchStatus(this::processPrefetchStatusResponse);
@@ -129,7 +131,7 @@ public class MainActivity extends AbstractMainActivity {
 
     //region Private Helpers
 
-    private void processPrefetchStatusResponse(final int statusCode, final String statusMsg) {
+    private void processPrefetchStatusResponse(int statusCode, String statusMsg) {
         // Show return value status.
         Log.d(TAG, "Request prefetch finished with status code: " + statusCode + " and message: " + statusMsg);
 
@@ -138,12 +140,12 @@ public class MainActivity extends AbstractMainActivity {
             // With all signals in place. Request Visit ID.
             GAHCore.requestVisitID(new GAHResponseCallback() {
                 @Override
-                public void success(final String visitID) {
+                public void success(String visitID) {
                     processVisitIDResponse(true, visitID);
                 }
 
                 @Override
-                public void error(final int statusCode, final String statusMsg) {
+                public void error(int statusCode, String statusMsg) {
                     processVisitIDResponse(false, statusMsg);
                 }
             });
@@ -155,14 +157,14 @@ public class MainActivity extends AbstractMainActivity {
      * To keep Lab simple, we will have unified method instead of two callbacks.
      *
      * @param success {@code True} if request was successful, otherwise {@code False}
-     * @param value On success it contain Visit ID, otherwise error description.
+     * @param value   On success it contain Visit ID, otherwise error description.
      */
-    private void processVisitIDResponse(final boolean success, final String value) {
+    private void processVisitIDResponse(boolean success, String value) {
         // ClearTransactionResources needs to be triggered from ui thread if BehavioSec is used.
         // In this Lab we want to simple display some visual result, so UI thread is also handy.
         runOnUiThread(() -> {
             // Display result on screen.
-            Toast.makeText(this, value, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), value, Toast.LENGTH_LONG).show();
 
             //noinspection StatementWithEmptyBody
             if (success) {

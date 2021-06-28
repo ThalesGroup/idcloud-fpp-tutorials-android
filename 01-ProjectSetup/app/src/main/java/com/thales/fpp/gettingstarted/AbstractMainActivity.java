@@ -31,11 +31,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.PermissionChecker;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.PermissionChecker;
+import androidx.fragment.app.FragmentManager;
 
 import com.thales.fpp.gettingstarted.fragments.FragmentMissingPermissions;
 
@@ -65,7 +66,7 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
     //region Life Cycle
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -89,7 +90,8 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
         // FragmentMissingPermissions will take care of that.
         if (!mSDKInitialised && checkMandatoryPermissions(false)) {
             // Hide missing permission fragment if it's present.
-            getSupportFragmentManager().popBackStack(TAG_FRAGMENT_MISSING_PERMISSIONS, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            getSupportFragmentManager()
+                    .popBackStack(TAG_FRAGMENT_MISSING_PERMISSIONS, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
             // Initialise SDK
             mSDKInitialised = initSDK();
@@ -110,16 +112,15 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
     /**
      * Checks the required runtime permissions.
      *
-     * @param askForThem
-     *         {@code True} if dialog application should request missing permissions, else {@code false}.
+     * @param askForThem {@code True} if dialog application should request missing permissions, else {@code false}.
      * @return {@code True} if all permissions are present, else {@code false}.
      */
-    public boolean checkMandatoryPermissions(final boolean askForThem) {
+    public boolean checkMandatoryPermissions(boolean askForThem) {
         try {
             // Get list of all permissions defined in app manifest.
-            final PackageInfo info = getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_PERMISSIONS);
+            PackageInfo info = getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_PERMISSIONS);
             return checkPermissions(askForThem, info.requestedPermissions);
-        } catch (final PackageManager.NameNotFoundException exception) {
+        } catch (PackageManager.NameNotFoundException exception) {
             // App package must be present.
             throw new IllegalStateException(exception);
         }
@@ -132,13 +133,14 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
     /**
      * Checks for runtime permission.
      *
-     * @param askForThem {@code True} if missing permission should be requested, else {@code false}.
+     * @param askForThem  {@code True} if missing permission should be requested, else {@code false}.
      * @param permissions List of permissions.
-     *
      * @return {@code True} if permissions are present, else {@code false}.
      */
-    private boolean checkPermissions(final boolean askForThem,
-                                     final String... permissions) {
+    private boolean checkPermissions(
+            boolean askForThem,
+            String... permissions
+    ) {
 
         // Old SDK version does not require dynamic permissions.
         if (Build.VERSION.SDK_INT < 23) {
@@ -146,8 +148,8 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
         }
 
         // Update list of permissions based on granted status.
-        final List<String> permissionsToCheck = new ArrayList<>();
-        for (final String permission : permissions) {
+        List<String> permissionsToCheck = new ArrayList<>();
+        for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(this, permission) != PermissionChecker.PERMISSION_GRANTED) {
                 //noinspection StatementWithEmptyBody
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
@@ -160,7 +162,7 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
 
         // Some permissions are not granted. Ask user for them.
         if (!permissionsToCheck.isEmpty() && askForThem) {
-            final String[] notGrantedArray = permissionsToCheck.toArray(new String[0]);
+            String[] notGrantedArray = permissionsToCheck.toArray(new String[0]);
             ActivityCompat.requestPermissions(this, notGrantedArray, 0);
         }
 
@@ -172,7 +174,9 @@ public abstract class AbstractMainActivity extends AppCompatActivity {
     //region FPP SDK Methods
 
     abstract boolean initSDK();
+
     abstract void endSDK();
+
     abstract void initGUI();
 
     //endregion

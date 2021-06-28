@@ -27,16 +27,18 @@
 
 package com.thales.fpp.gettingstarted.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.thales.fpp.gettingstarted.MainActivity;
 import com.thales.fpp.gettingstarted.R;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * Fragment to request mandatory runtime permissions.
@@ -47,10 +49,13 @@ public class FragmentMissingPermissions extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull final LayoutInflater inflater,
-                             @Nullable final ViewGroup container,
-                             @Nullable final Bundle savedInstanceState) {
-        final View retValue = inflater.inflate(R.layout.fragment_missing_permissions, null);
+    @SuppressLint("InflateParams")
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState
+    ) {
+        View retValue = inflater.inflate(R.layout.fragment_missing_permissions, null);
 
         // Find Ask For Permissions button and add handler to it.
         retValue.findViewById(R.id.fragment_missing_permissions_button_permissions)
@@ -63,7 +68,7 @@ public class FragmentMissingPermissions extends Fragment {
 
     //region User Interface
 
-    private void onButtonPressedPermissions(final View view) {
+    private void onButtonPressedPermissions(View view) {
         // MainActivity should always be present.
         // Make sure, that someone did not change activity.
         if (!(getActivity() instanceof MainActivity)) {
@@ -71,7 +76,7 @@ public class FragmentMissingPermissions extends Fragment {
         }
 
         // Force permission check with user dialog.
-        final MainActivity activity = (MainActivity)getActivity();
+        final MainActivity activity = (MainActivity) getActivity();
         activity.checkMandatoryPermissions(true);
     }
 
