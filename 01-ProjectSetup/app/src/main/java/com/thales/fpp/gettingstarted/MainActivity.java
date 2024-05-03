@@ -130,7 +130,6 @@ public class MainActivity extends AbstractMainActivity {
      * @param value   On success it contain Visit ID, otherwise error description.
      */
     private void processVisitIDResponse(boolean success, String value) {
-        // ClearTransactionResources needs to be triggered from ui thread if BehavioSec is used.
         // In this Lab we want to simple display some visual result, so UI thread is also handy.
         runOnUiThread(() -> {
             // Display result on screen.
@@ -143,7 +142,6 @@ public class MainActivity extends AbstractMainActivity {
                 // ...
             }
 
-            // PLACEHOLDER: Clear Transaction Resources
         });
     }
 
