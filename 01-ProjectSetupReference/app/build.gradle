@@ -10,11 +10,11 @@ android {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.thales.fpp.gettingstarted"
         minSdkVersion 22
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -53,7 +53,6 @@ dependencies {
     // Add JNA dependency
     api "net.java.dev.jna:jna:5.5.0@aar"
 
-    //region Extra dependency for BehavioSec
     // Play Services for Activity Recognition
     implementation "com.google.android.gms:play-services-location:18.0.0"
     // SafetyNet for list of harmful apps
